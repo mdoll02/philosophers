@@ -13,4 +13,6 @@
 #ifndef PHILO_H
 # define PHILO_H
 
+int	input_check(int argc, char **argv);
+
 #endif
