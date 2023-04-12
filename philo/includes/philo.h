@@ -13,6 +13,20 @@
 #ifndef PHILO_H
 # define PHILO_H
 
+typedef struct s_table
+{
+	int		number_of_philo;
+}		t_table;
+
+typedef struct s_philo
+{
+	int		time_to_die;
+	int		time_to_eat;
+	int		time_to_sleep;
+	int		how_much_eat;
+	t_table	tb;
+}		t_philo;
+
 int	input_check(int argc, char **argv);
 
 #endif
