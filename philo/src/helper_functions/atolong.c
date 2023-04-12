@@ -10,6 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "philo.h"
+
 static int	ft_checkwhitespaces(char *str, int i)
 {
 	if (str[i] == '\n' || str[i] == ' '

@@ -24,9 +24,10 @@ typedef struct s_philo
 	int		time_to_eat;
 	int		time_to_sleep;
 	int		how_much_eat;
-	t_table	tb;
+	t_table	*tb;
 }		t_philo;
 
-int	input_check(int argc, char **argv);
+int		input_check(int argc, char **argv);
+long	atolong(const char	*str);
 
 #endif
