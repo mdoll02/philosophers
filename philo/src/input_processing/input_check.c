@@ -52,9 +52,7 @@ static long	atolong(const char	*str)
 	isnegative = ft_checkfirstdigit(s, i);
 	if (isnegative == -1)
 		return (0);
-	else if (isnegative == 1)
-		i++;
-	else if (isnegative == 2)
+	else if (isnegative == 1 || isnegative == 2)
 		i++;
 	while (str[i] >= '0' && str[i] <= '9')
 	{
