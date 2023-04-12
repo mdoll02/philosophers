@@ -72,7 +72,7 @@ int	input_check(int argc, char **argv)
 
 	if (argc < 5 || argc > 6)
 		return (printf("invalid number of parameters\n"), 1);
-	(*argv)++;
+	argv++;
 	while (argc-- > 1)
 	{
 		num = atolong(*argv);
@@ -80,8 +80,7 @@ int	input_check(int argc, char **argv)
 			return (printf("%s needs to be in integer range\n", *argv), 1);
 		else if (num < 0)
 			return (printf("%s needs to be a positive number\n", *argv), 1);
-		printf("num: %ld\n", num);
-		(*argv)++;
+		argv++;
 	}
 	return (0);
 }
