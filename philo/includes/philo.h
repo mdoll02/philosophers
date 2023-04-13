@@ -19,7 +19,7 @@ typedef struct s_philo
 	int		time_to_eat;
 	int		time_to_sleep;
 	int		how_much_eat;
-	t_table	*tb;
+	int		number_of_philo;
 }		t_philo;
 
 int		input_check(int argc, char **argv);
