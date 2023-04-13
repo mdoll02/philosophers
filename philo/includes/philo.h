@@ -24,5 +24,6 @@ typedef struct s_philo
 
 int		input_check(int argc, char **argv);
 long	atolong(const char	*str);
+void	*philosopher(void *arg);
 
 #endif
