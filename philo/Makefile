@@ -7,8 +7,9 @@ CFLAGS := -Wall -Wextra -Werror
 INCLUDES := -I includes
 
 SRC := main.c \
-		input_processing/input_check.c \
-		helper_functions/atolong.c
+		input_check.c \
+		atolong.c \
+		philo_action.c
 
 SRC_DIR = src
 OBJ_DIR = obj
