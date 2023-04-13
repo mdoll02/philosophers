@@ -12,10 +12,9 @@
 
 #include <stdio.h>
 #include "philo.h"
-#include <sys/time.h>
 #include <pthread/pthread.h>
 #include <strings.h>
-#include <unistd.h>
+#include <sys/time.h>
 
 static void	fill_struct(t_philo *phil, char **argv, int argc)
 {
@@ -27,20 +26,6 @@ static void	fill_struct(t_philo *phil, char **argv, int argc)
 		phil->how_much_eat = (int)atolong(argv[5]);
 	else
 		phil->how_much_eat = -1;
-}
-
-void	*do_some_thing(void *arg)
-{
-	struct timeval	cur_time;
-	struct timeval	start_time;
-
-	start_time = *(struct timeval *)arg;
-	gettimeofday(&cur_time, NULL);
-	printf("My creation was at: %ld Seconds and %d microseconds\n", cur_time.tv_sec, cur_time.tv_usec);
-	usleep(1000);
-	gettimeofday(&cur_time, NULL);
-	printf("My creation was %ld ms milliseconds ago\n", ((cur_time.tv_usec - start_time.tv_usec) / 1000) + ((cur_time.tv_sec - start_time.tv_sec) * 1000));
-	return (NULL);
 }
 
 int	main(int argc, char **argv)
@@ -58,7 +43,7 @@ int	main(int argc, char **argv)
 	printf("number of philos: %i\ntime to die: %d\ntime to eat: %d\ntime to sleep %d\nhow much eat: %d\n", phil.number_of_philo, phil.time_to_die, phil.time_to_eat, phil.time_to_sleep, phil.how_much_eat);
 	while (i < phil.number_of_philo)
 	{
-		if (pthread_create(&tid[i], NULL, &do_some_thing, &start_time) != 0)
+		if (pthread_create(&tid[i], NULL, &philosopher, &start_time) != 0)
 			printf("thread broky\n");
 		i++;
 	}
