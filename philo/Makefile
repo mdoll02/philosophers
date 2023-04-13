@@ -22,8 +22,6 @@ $(NAME): $(OBJ)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	@mkdir -p $(OBJ_DIR)
-	@mkdir -p $(OBJ_DIR)/input_processing
-	@mkdir -p $(OBJ_DIR)/helper_functions
 	@$(CC) $(CFLAGS) -c $< -o $@ $(INCLUDES)
 	@echo "Compiling $<"
 
