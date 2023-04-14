@@ -33,7 +33,7 @@ int	main(int argc, char **argv)
 	t_philo			phil;
 	pthread_t		tid[100000];
 	int				i;
-	struct timeval	start_time;
+	t_time			start_time;
 
 	if (input_check(argc, argv))
 		return (1);
