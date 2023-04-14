@@ -15,16 +15,23 @@
 #include <stdio.h>
 #include "philo.h"
 
+static int	get_time_stamp(t_time start_time)
+{
+	t_time	cur_time;
+	int		ms;
+	long	s;
+
+	gettimeofday(&cur_time, NULL);
+	ms = (cur_time.tv_usec - start_time.tv_usec) / 1000;
+	s = (cur_time.tv_sec - start_time.tv_sec) * 1000;
+	return (ms + (int)s);
+}
+
 void	*philosopher(void *arg)
 {
-	struct timeval	cur_time;
-	struct timeval	start_time;
+	t_time	start_time;
 
-	start_time = *(struct timeval *)arg;
-	gettimeofday(&cur_time, NULL);
-	printf("My creation was at: %ld Seconds and %d microseconds\n", cur_time.tv_sec, cur_time.tv_usec);
-	usleep(1000);
-	gettimeofday(&cur_time, NULL);
-	printf("My creation was %ld ms milliseconds ago\n", ((cur_time.tv_usec - start_time.tv_usec) / 1000) + ((cur_time.tv_sec - start_time.tv_sec) * 1000));
+	start_time = *(t_time *)arg;
+	printf("%dms\n", get_time_stamp(start_time));
 	return (NULL);
 }
