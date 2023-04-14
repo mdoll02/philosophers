@@ -13,6 +13,8 @@
 #ifndef PHILO_H
 # define PHILO_H
 
+typedef struct timeval	t_time;
+
 typedef struct s_philo
 {
 	int		time_to_die;
