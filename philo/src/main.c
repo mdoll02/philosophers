@@ -64,8 +64,8 @@ int	main(int argc, char **argv)
 	i = 0;
 	fill_struct(&data, argv, argc);
 	gettimeofday(&start_time, NULL);
-	printf("number of philos: %i\ntime to die: %d\ntime to eat: %d\ntime to sleep %d\nhow much eat: %d\n", phil.number_of_philo, phil.time_to_die, phil.time_to_eat, phil.time_to_sleep, phil.how_much_eat);
-	while (i < phil.number_of_philo)
+	printf("number of philos: %i\ntime to die: %d\ntime to eat: %d\ntime to sleep %d\nhow much eat: %d\n", data.number_of_philo, data.time_to_die, data.time_to_eat, data.time_to_sleep, data.how_much_eat);
+	while (i < data.number_of_philo)
 	{
 		philo = *(t_philo *)malloc(sizeof(philo));
 		init_philosopher(&philo, &data, &start_time, i);
