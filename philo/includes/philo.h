@@ -13,15 +13,28 @@
 #ifndef PHILO_H
 # define PHILO_H
 
+# include <pthread/pthread.h>
+
 typedef struct timeval	t_time;
+
+typedef struct s_data
+{
+	int				time_to_die;
+	int				time_to_eat;
+	int				time_to_sleep;
+	int				how_much_eat;
+	int				number_of_philo;
+	pthread_mutex_t	*forks;
+}		t_data;
 
 typedef struct s_philo
 {
-	int		time_to_die;
-	int		time_to_eat;
-	int		time_to_sleep;
-	int		how_much_eat;
-	int		number_of_philo;
+	int				id;
+	pthread_mutex_t	*fork_left;
+	pthread_mutex_t	*fork_right;
+	int				nb_eaten;
+	t_data			*data;
+	t_time			*start_time;
 }		t_philo;
 
 int		input_check(int argc, char **argv);
