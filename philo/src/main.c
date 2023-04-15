@@ -29,6 +29,7 @@ static void	fill_struct(t_data *data, char **argv, int argc) {
 	else
 		data->how_much_eat = -1;
 	i = 0;
+	data->forks = malloc(sizeof(pthread_mutex_t));
 	while (i < data->number_of_philo)
 	{
 		if (pthread_mutex_init(&data->forks[i], NULL) != 0)
@@ -46,6 +47,8 @@ static void	init_philosopher(t_philo *philo, t_data *data, t_time *start_time, i
 	philo->start_time = start_time;
 	philo->id = id;
 	philo->nb_eaten = 0;
+	philo->fork_left = &data->forks[id];
+	philo->fork_right = &data->forks[(id + 1) % data->number_of_philo];
 }
 
 int	main(int argc, char **argv)
