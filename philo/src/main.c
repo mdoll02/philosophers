@@ -27,7 +27,17 @@ static void	fill_struct(t_data *data, char **argv, int argc) {
 	if (argc == 6)
 		data->how_much_eat = (int) atolong(argv[5]);
 	else
-		phil->how_much_eat = -1;
+		data->how_much_eat = -1;
+	i = 0;
+	while (i < data->number_of_philo)
+	{
+		if (pthread_mutex_init(&data->forks[i], NULL) != 0)
+		{
+			printf("mutex inti failed\n");
+			return ;
+		}
+		i++;
+	}
 }
 
 static void	init_philosopher(t_philo *philo, t_data *data, t_time *start_time, int id)
