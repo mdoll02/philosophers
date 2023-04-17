@@ -30,12 +30,12 @@ typedef struct s_data
 
 typedef struct s_philo
 {
-	int				id;
 	pthread_mutex_t	*fork_left;
 	pthread_mutex_t	*fork_right;
 	int				nb_eaten;
 	t_data			*data;
 	t_time			*start_time;
+	unsigned int	id; //potential fix
 }		t_philo;
 
 int		input_check(int argc, char **argv);
