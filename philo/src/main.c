@@ -38,6 +38,7 @@ static void	fill_struct(t_data *data, char **argv, int argc) {
 		}
 		i++;
 	}
+	data->tid = (pthread_t *)malloc(data->number_of_philo - 1);
 }
 
 static void	init_philosopher(t_philo *philo, t_data *data, t_time *start_time, int id)
@@ -53,7 +54,6 @@ static void	init_philosopher(t_philo *philo, t_data *data, t_time *start_time, i
 int	main(int argc, char **argv)
 {
 	t_data			data;
-	pthread_t		tid[100000];
 	int				i;
 	t_time			start_time;
 	t_philo			philo;
