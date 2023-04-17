@@ -66,15 +66,13 @@ int	main(int argc, char **argv)
 	printf("number of philos: %i\ntime to die: %d\ntime to eat: %d\ntime to sleep %d\nhow much eat: %d\n", data.number_of_philo, data.time_to_die, data.time_to_eat, data.time_to_sleep, data.how_much_eat);
 	while (i < data.number_of_philo)
 	{
-		philo = *(t_philo *)malloc(sizeof(philo));
-		init_philosopher(&philo, &data, &start_time, i);
-		if (pthread_create(&tid[i], NULL, &philosopher, &philo) != 0)
+		if (pthread_create(&data.tid[i], NULL, &philosopher, &philo_arr[i]) != 0)
 			printf("thread broky\n");
 		i++;
 	}
 	while (i >= 0)
 	{
-		pthread_join(tid[i], NULL);
+		pthread_join(data.tid[i], NULL);
 		i--;
 	}
 	return (0);
