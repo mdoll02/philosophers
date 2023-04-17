@@ -41,14 +41,26 @@ static void	fill_struct(t_data *data, char **argv, int argc) {
 	data->tid = (pthread_t *)malloc(data->number_of_philo - 1);
 }
 
-static void	init_philosopher(t_philo *philo, t_data *data, t_time *start_time, int id)
+static t_philo	*init_philosopher(t_data *data, t_time *start_time)
 {
-	philo->data = data;
-	philo->start_time = start_time;
-	philo->id = id;
-	philo->nb_eaten = 0;
-	philo->fork_left = &data->forks[id];
-	philo->fork_right = &data->forks[(id + 1) % data->number_of_philo];
+	unsigned int	id;
+	t_philo			*philo_arr;
+
+	id = 0;
+	philo_arr = (t_philo *)malloc(sizeof (t_philo *) * data->number_of_philo);
+	if (!philo_arr)
+		exit(1);
+	while (id < (unsigned int)data->number_of_philo)
+	{
+		philo_arr[id].data = data;
+		philo_arr[id].start_time = start_time;
+		philo_arr[id].id = id;
+		philo_arr[id].nb_eaten = 0;
+		philo_arr[id].fork_left = &data->forks[id];
+		philo_arr[id].fork_right = &data->forks[(id + 1) % data->number_of_philo];
+		id++;
+	}
+	return (philo_arr);
 }
 
 int	main(int argc, char **argv)
@@ -56,14 +68,14 @@ int	main(int argc, char **argv)
 	t_data			data;
 	int				i;
 	t_time			start_time;
-	t_philo			philo;
+	t_philo			*philo_arr;
 
 	if (input_check(argc, argv))
 		return (1);
 	i = 0;
 	fill_struct(&data, argv, argc);
 	gettimeofday(&start_time, NULL);
-	printf("number of philos: %i\ntime to die: %d\ntime to eat: %d\ntime to sleep %d\nhow much eat: %d\n", data.number_of_philo, data.time_to_die, data.time_to_eat, data.time_to_sleep, data.how_much_eat);
+	philo_arr = init_philosopher(&data, &start_time);
 	while (i < data.number_of_philo)
 	{
 		if (pthread_create(&data.tid[i], NULL, &philosopher, &philo_arr[i]) != 0)
