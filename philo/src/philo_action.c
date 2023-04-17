@@ -29,10 +29,10 @@ static int	get_time_stamp(t_time start_time)
 
 static void	eat_n_sleep(t_philo *philo)
 {
-	printf("%d %d is eating\n", get_time_stamp(*philo->start_time), philo->id);
+	printf("%u %u is eating\n", get_time_stamp(*philo->start_time), philo->id);
 	usleep(philo->data->time_to_eat * 1000);
 	philo->nb_eaten++;
-	printf("%d %d is sleeping\n", get_time_stamp(*philo->start_time), philo->id);
+	printf("%u %u is sleeping\n", get_time_stamp(*philo->start_time), philo->id);
 	usleep(philo->data->time_to_sleep * 1000);
 }
 
@@ -56,7 +56,7 @@ void	*philosopher(void *arg)
 		eat_n_sleep(&philo);
 		pthread_mutex_unlock(philo.fork_left);
 		pthread_mutex_unlock(philo.fork_right);
-		printf("%d %d is thinking\n", get_time_stamp(*philo.start_time), philo.id);
+		printf("%u %u is thinking\n", get_time_stamp(*philo.start_time), philo.id);
 	}
 	return (NULL);
 }
