@@ -82,10 +82,10 @@ int	main(int argc, char **argv)
 			printf("thread broky\n");
 		i++;
 	}
-	while (i >= 0)
+	i = 0;
+	while (i < data.number_of_philo)
 	{
-		pthread_join(data.tid[i], NULL);
-		i--;
+		pthread_join(data.tid[i++], NULL);
 	}
 	return (0);
 }
