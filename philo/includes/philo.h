@@ -39,7 +39,7 @@ typedef struct s_philo
 	t_data			*data;
 	t_time			*start_time;
 	bool			is_ded;
-	unsigned int	id; //potential fix
+	unsigned int	id;
 }		t_philo;
 
 int		input_check(int argc, char **argv);
