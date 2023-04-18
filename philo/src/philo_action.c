@@ -73,7 +73,6 @@ void	*philosopher(void *arg)
 		pthread_mutex_unlock(philo.display);
 		if (philo.nb_eaten == philo.data->how_much_eat)
 			break ;
-		usleep(philo.data->time_to_eat * 1000);
 	}
 	return (NULL);
 }
