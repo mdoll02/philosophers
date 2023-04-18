@@ -83,7 +83,6 @@ int	main(int argc, char **argv)
 	{
 		if (pthread_create(&data.tid[i], NULL, &philosopher, &philo_arr[i]) != 0)
 			printf("thread broky\n");
-		//usleep(1);
 		i++;
 	}
 	i = 0;
