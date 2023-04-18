@@ -14,6 +14,7 @@
 # define PHILO_H
 
 # include <pthread/pthread.h>
+# include <stdbool.h>
 
 typedef struct timeval	t_time;
 
@@ -37,6 +38,7 @@ typedef struct s_philo
 	int				nb_eaten;
 	t_data			*data;
 	t_time			*start_time;
+	bool			is_ded;
 	unsigned int	id; //potential fix
 }		t_philo;
 

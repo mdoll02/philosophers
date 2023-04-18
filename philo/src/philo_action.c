@@ -45,7 +45,7 @@ void	*philosopher(void *arg)
 	t_philo	philo;
 
 	philo = *(t_philo *) arg;
-	while (philo.nb_eaten < philo.data->how_much_eat)
+	while (philo.is_ded == false)
 	{
 		if (philo.id % 2 == 1)
 		{
