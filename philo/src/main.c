@@ -38,7 +38,7 @@ static void	fill_struct(t_data *data, char **argv, int argc) {
 		}
 		i++;
 	}
-	data->tid = (pthread_t *)malloc(data->number_of_philo - 1);
+	data->tid = (pthread_t *)malloc(data->number_of_philo * sizeof(pthread_t));
 	pthread_mutex_init(&data->display, NULL);
 }
 
@@ -48,7 +48,7 @@ static t_philo	*init_philosopher(t_data *data, t_time *start_time)
 	t_philo			*philo_arr;
 
 	id = 0;
-	philo_arr = (t_philo *)malloc(sizeof (t_philo *) * data->number_of_philo);
+	philo_arr = (t_philo *)malloc(sizeof (t_philo) * data->number_of_philo);
 	if (!philo_arr)
 		exit(1);
 	while (id < (unsigned int)data->number_of_philo)
