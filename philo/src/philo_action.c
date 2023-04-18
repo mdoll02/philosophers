@@ -34,6 +34,16 @@ static void	eat_n_sleep(t_philo *philo)
 	pthread_mutex_unlock(philo->display);
 	usleep(philo->data->time_to_eat * 1000);
 	philo->nb_eaten++;
+	if (philo->id % 2 == 1)
+	{
+		pthread_mutex_unlock(philo->fork_left);
+		pthread_mutex_unlock(philo->fork_right);
+	}
+	else
+	{
+		pthread_mutex_unlock(philo->fork_right);
+		pthread_mutex_unlock(philo->fork_left);
+	}
 	pthread_mutex_lock(philo->display);
 	printf(BLU"%u %u is sleeping\n"END, get_time_stamp(*philo->start_time), philo->id);
 	pthread_mutex_unlock(philo->display);
@@ -58,16 +68,6 @@ void	*philosopher(void *arg)
 			pthread_mutex_lock(philo.fork_left);
 		}
 		eat_n_sleep(&philo);
-		if (philo.id % 2 == 1)
-		{
-			pthread_mutex_unlock(philo.fork_left);
-			pthread_mutex_unlock(philo.fork_right);
-		}
-		else
-		{
-			pthread_mutex_unlock(philo.fork_right);
-			pthread_mutex_unlock(philo.fork_left);
-		}
 		pthread_mutex_lock(philo.display);
 		printf(GRN"%u %u is thinking\n"END, get_time_stamp(*philo.start_time), philo.id);
 		pthread_mutex_unlock(philo.display);
