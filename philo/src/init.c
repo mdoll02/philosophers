@@ -16,6 +16,14 @@
 #include <strings.h>
 #include <stdlib.h>
 
+static void	destroy(int i, t_data *data, bool mutex)
+{
+	while (--i >= 0)
+		pthread_mutex_destroy(&data->forks[i]);
+	if (mutex)
+		printf("mutex init failed\n");
+}
+
 int	fill_struct(t_data *data, char **argv, int argc)
 {
 	int	i;
@@ -27,35 +35,21 @@ int	fill_struct(t_data *data, char **argv, int argc)
 	data->how_much_eat = -1;
 	if (argc == 6)
 		data->how_much_eat = (int) atolong(argv[5]);
-	i = 0;
 	data->forks = malloc(sizeof(pthread_mutex_t) * data->number_of_philo);
 	if (!data->forks)
 		return (1);
+	i = 0;
 	while (i < data->number_of_philo)
 	{
 		if (pthread_mutex_init(&data->forks[i], NULL) != 0)
-		{
-			while (--i >= 0)
-				pthread_mutex_destroy(&data->forks[i]);
-			printf("mutex init failed\n");
-			return (free(data->forks), 1);
-		}
+			return (destroy(i, data, true), free(data->forks), 1);
 		i++;
 	}
 	data->tid = (pthread_t *)malloc(data->number_of_philo * sizeof(pthread_t));
 	if (!data->tid)
-	{
-		while (--i >= 0)
-			pthread_mutex_destroy(&data->forks[i]);
-		return (free(data->forks), 1);
-	}
+		return (destroy(i, data, false), free(data->forks), free(data->tid), 1);
 	if (pthread_mutex_init(&data->display, NULL) != 0)
-	{
-		while (--i >= 0)
-			pthread_mutex_destroy(&data->forks[i]);
-		printf("mutex init failed\n");
-		return (1);
-	}
+		return (destroy(i, data, true), free(data->forks), free(data->tid), 1);
 	return (0);
 }
 
