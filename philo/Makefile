@@ -10,7 +10,7 @@ SRC := main.c \
 		input_check.c \
 		atolong.c \
 		philo_action.c \
-		free_ustils.c
+		free_utils.c
 
 SRC_DIR = src
 OBJ_DIR = obj
