@@ -9,7 +9,8 @@ INCLUDES := -I includes
 SRC := main.c \
 		input_check.c \
 		atolong.c \
-		philo_action.c
+		philo_action.c \
+		free_ustils.c
 
 SRC_DIR = src
 OBJ_DIR = obj
