@@ -16,11 +16,6 @@
 # include <pthread/pthread.h>
 # include <stdbool.h>
 
-# define GRN "\033[0;32m"
-# define RED "\033[0;31m"
-# define BLU "\033[0;34m"
-# define END "\033[0m"
-
 typedef struct timeval	t_time;
 
 typedef struct s_data

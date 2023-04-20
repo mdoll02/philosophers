@@ -14,6 +14,7 @@
 #include <unistd.h>
 #include <stdio.h>
 #include "philo.h"
+#include "color.h"
 
 static int	get_time_stamp(t_time start_time)
 {
