@@ -61,6 +61,7 @@ static t_philo	*init_philosopher(t_data *data, t_time *start_time)
 		philo_arr[id].fork_right = &data->forks[(id + 1) % data->number_of_philo];
 		philo_arr[id].display = &data->display;
 		philo_arr[id].is_ded = false;
+		philo_arr[id].last_time_eaten = 0;
 		id++;
 	}
 	return (philo_arr);

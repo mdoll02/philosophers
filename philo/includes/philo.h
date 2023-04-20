@@ -40,9 +40,10 @@ typedef struct s_philo
 	pthread_mutex_t	*fork_left;
 	pthread_mutex_t	*fork_right;
 	pthread_mutex_t	*display;
-	int				nb_eaten;
 	t_data			*data;
 	t_time			*start_time;
+	int				nb_eaten;
+	int				last_time_eaten;
 	bool			is_ded;
 	unsigned int	id;
 }		t_philo;
