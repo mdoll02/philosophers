@@ -35,6 +35,8 @@ int	fill_struct(t_data *data, char **argv, int argc)
 	{
 		if (pthread_mutex_init(&data->forks[i], NULL) != 0)
 		{
+			while (--i >= 0)
+				pthread_mutex_destroy(&data->forks[i]);
 			printf("mutex init failed\n");
 			return (free(data->forks), 1);
 		}
@@ -42,9 +44,15 @@ int	fill_struct(t_data *data, char **argv, int argc)
 	}
 	data->tid = (pthread_t *)malloc(data->number_of_philo * sizeof(pthread_t));
 	if (!data->tid)
+	{
+		while (--i >= 0)
+			pthread_mutex_destroy(&data->forks[i]);
 		return (free(data->forks), 1);
+	}
 	if (pthread_mutex_init(&data->display, NULL) != 0)
 	{
+		while (--i >= 0)
+			pthread_mutex_destroy(&data->forks[i]);
 		printf("mutex init failed\n");
 		return (1);
 	}
@@ -59,7 +67,7 @@ t_philo	*init_philosopher(t_data *data, t_time *start_time)
 	id = 0;
 	philo_arr = (t_philo *)malloc(sizeof (t_philo) * data->number_of_philo);
 	if (!philo_arr)
-		exit(1);
+		return (free_data(data), NULL);
 	while (id < (unsigned int)data->number_of_philo)
 	{
 		philo_arr[id].data = data;
