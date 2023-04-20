@@ -91,5 +91,6 @@ int	main(int argc, char **argv)
 	{
 		pthread_join(data.tid[i++], NULL);
 	}
+	free_philo(&philo_arr);
 	return (0);
 }
