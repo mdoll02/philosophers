@@ -19,15 +19,11 @@
 
 static void	eat_n_sleep(t_philo *philo)
 {
-	pthread_mutex_lock(philo->display);
-	printf(RED"%u %u"EAT END, get_time_stamp(*philo->start_time), philo->id);
-	pthread_mutex_unlock(philo->display);
+	print_msg(philo, EAT, RED);
 	usleep(philo->data->time_to_eat * 1000);
 	philo->nb_eaten++;
 	fork_unlock(philo);
-	pthread_mutex_lock(philo->display);
-	printf(BLU"%u %u"SLEEP END, get_time_stamp(*philo->start_time), philo->id);
-	pthread_mutex_unlock(philo->display);
+	print_msg(philo, SLEEP, BLU);
 	usleep(philo->data->time_to_sleep * 1000);
 }
 
@@ -40,9 +36,7 @@ void	*philosopher(void *arg)
 	{
 		fork_lock(&philo);
 		eat_n_sleep(&philo);
-		pthread_mutex_lock(philo.display);
-		printf(GRN"%u %u"THINK END, get_time_stamp(*philo.start_time), philo.id);
-		pthread_mutex_unlock(philo.display);
+		print_msg(&philo, THINK, GRN);
 		if (philo.nb_eaten == philo.data->how_much_eat)
 			break ;
 	}

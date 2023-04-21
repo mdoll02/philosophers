@@ -15,6 +15,7 @@
 #include "msg.h"
 #include "color.h"
 #include <sys/time.h>
+#include "philo_helpers.h"
 
 int	get_time_stamp(t_time start_time)
 {
@@ -33,16 +34,16 @@ void	fork_unlock(t_philo *philo)
 	if (philo->id % 2 == 1)
 	{
 		pthread_mutex_unlock(philo->fork_left);
-		printf(MGT"%u %u"FORK END, get_time_stamp(*philo->start_time), philo->id);
+		print_msg(philo, FORK, MGT);
 		pthread_mutex_unlock(philo->fork_right);
-		printf(MGT"%u %u"FORK END, get_time_stamp(*philo->start_time), philo->id);
+		print_msg(philo, FORK, MGT);
 	}
 	else
 	{
 		pthread_mutex_unlock(philo->fork_right);
-		printf(MGT"%u %u"FORK END, get_time_stamp(*philo->start_time), philo->id);
+		print_msg(philo, FORK, MGT);
 		pthread_mutex_unlock(philo->fork_left);
-		printf(MGT"%u %u"FORK END, get_time_stamp(*philo->start_time), philo->id);
+		print_msg(philo, FORK, MGT);
 	}
 }
 
@@ -60,7 +61,12 @@ void	fork_lock(t_philo *philo)
 	}
 }
 
-void	print_msg(t_philo *philo)
+void	print_msg(t_philo *philo, char *msg, char *col)
 {
+	int	time;
 
+	time = get_time_stamp(*philo->start_time);
+	pthread_mutex_lock(philo->display);
+	printf("%s""%u %u""%s" END, col, time, philo->id, msg);
+	pthread_mutex_unlock(philo->display);
 }
