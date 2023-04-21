@@ -11,7 +11,8 @@ SRC := main.c \
 		atolong.c \
 		philo_action.c \
 		free_utils.c \
-		init.c
+		init.c \
+		philo_helpers.c \
 
 SRC_DIR = src
 OBJ_DIR = obj
