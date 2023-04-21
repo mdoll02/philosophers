@@ -15,6 +15,7 @@
 #include <stdio.h>
 #include "philo.h"
 #include "color.h"
+#include "msg.h"
 
 static int	get_time_stamp(t_time start_time)
 {
@@ -33,16 +34,16 @@ static void	fork_unlock(t_philo *philo)
 	if (philo->id % 2 == 1)
 	{
 		pthread_mutex_unlock(philo->fork_left);
-		printf(MGT"%u %u has taken a fork\n"END, get_time_stamp(*philo->start_time), philo->id);
+		printf(MGT"%u %u"FORK END, get_time_stamp(*philo->start_time), philo->id);
 		pthread_mutex_unlock(philo->fork_right);
-		printf(MGT"%u %u has taken a fork\n"END, get_time_stamp(*philo->start_time), philo->id);
+		printf(MGT"%u %u"FORK END, get_time_stamp(*philo->start_time), philo->id);
 	}
 	else
 	{
 		pthread_mutex_unlock(philo->fork_right);
-		printf(MGT"%u %u has taken a fork\n"END, get_time_stamp(*philo->start_time), philo->id);
+		printf(MGT"%u %u"FORK END, get_time_stamp(*philo->start_time), philo->id);
 		pthread_mutex_unlock(philo->fork_left);
-		printf(MGT"%u %u has taken a fork\n"END, get_time_stamp(*philo->start_time), philo->id);
+		printf(MGT"%u %u"FORK END, get_time_stamp(*philo->start_time), philo->id);
 	}
 }
 
@@ -63,13 +64,13 @@ static void	fork_lock(t_philo *philo)
 static void	eat_n_sleep(t_philo *philo)
 {
 	pthread_mutex_lock(philo->display);
-	printf(RED"%u %u is eating\n"END, get_time_stamp(*philo->start_time), philo->id);
+	printf(RED"%u %u"EAT END, get_time_stamp(*philo->start_time), philo->id);
 	pthread_mutex_unlock(philo->display);
 	usleep(philo->data->time_to_eat * 1000);
 	philo->nb_eaten++;
 	fork_unlock(philo);
 	pthread_mutex_lock(philo->display);
-	printf(BLU"%u %u is sleeping\n"END, get_time_stamp(*philo->start_time), philo->id);
+	printf(BLU"%u %u"SLEEP END, get_time_stamp(*philo->start_time), philo->id);
 	pthread_mutex_unlock(philo->display);
 	usleep(philo->data->time_to_sleep * 1000);
 }
@@ -84,7 +85,7 @@ void	*philosopher(void *arg)
 		fork_lock(&philo);
 		eat_n_sleep(&philo);
 		pthread_mutex_lock(philo.display);
-		printf(GRN"%u %u is thinking\n"END, get_time_stamp(*philo.start_time), philo.id);
+		printf(GRN"%u %u"THINK END, get_time_stamp(*philo.start_time), philo.id);
 		pthread_mutex_unlock(philo.display);
 		if (philo.nb_eaten == philo.data->how_much_eat)
 			break ;
