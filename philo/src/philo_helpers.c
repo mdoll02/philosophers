@@ -34,16 +34,12 @@ void	fork_unlock(t_philo *philo)
 	if (philo->id % 2 == 1)
 	{
 		pthread_mutex_unlock(philo->fork_left);
-		print_msg(philo, FORK, MGT);
 		pthread_mutex_unlock(philo->fork_right);
-		print_msg(philo, FORK, MGT);
 	}
 	else
 	{
 		pthread_mutex_unlock(philo->fork_right);
-		print_msg(philo, FORK, MGT);
 		pthread_mutex_unlock(philo->fork_left);
-		print_msg(philo, FORK, MGT);
 	}
 }
 
@@ -52,12 +48,16 @@ void	fork_lock(t_philo *philo)
 	if (philo->id % 2 == 1)
 	{
 		pthread_mutex_lock(philo->fork_left);
+		print_msg(philo, FORK, MGT);
 		pthread_mutex_lock(philo->fork_right);
+		print_msg(philo, FORK, MGT);
 	}
 	else
 	{
 		pthread_mutex_lock(philo->fork_right);
+		print_msg(philo, FORK, MGT);
 		pthread_mutex_lock(philo->fork_left);
+		print_msg(philo, FORK, MGT);
 	}
 }
 
