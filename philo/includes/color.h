@@ -16,6 +16,7 @@
 # define GRN "\033[0;32m"
 # define RED "\033[0;31m"
 # define BLU "\033[0;34m"
+# define MGT "\033[0;35m"
 # define END "\033[0m"
 
 #endif
