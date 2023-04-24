@@ -15,6 +15,26 @@
 #include <pthread/pthread.h>
 #include <strings.h>
 #include <sys/time.h>
+#include "philo_helpers.h"
+#include <unistd.h>
+#include <stdlib.h>
+
+static void	check_if_ded(t_philo **philo_arr, t_data	*data)
+{
+	int		i;
+
+	while (1)
+	{
+		i = 0;
+		while (i < data->number_of_philo)
+		{
+			printf("debug%d\n", i);
+			if (get_time_stamp(*philo_arr[i]->start_time) - philo_arr[i]->last_time_eaten >= data->time_to_die)
+				exit(1);
+			i++;
+		}
+	}
+}
 
 int	main(int argc, char **argv)
 {
@@ -39,6 +59,8 @@ int	main(int argc, char **argv)
 		}
 		i++;
 	}
+	usleep(data.time_to_eat * 1000 * 2);
+	check_if_ded(&philo_arr, &data);
 	i = 0;
 	while (i < data.number_of_philo)
 		pthread_join(data.tid[i++], NULL);
