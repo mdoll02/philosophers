@@ -19,6 +19,7 @@
 
 static void	eat_n_sleep(t_philo *philo)
 {
+	philo->last_time_eaten = get_time_stamp(*philo->start_time);
 	print_msg(philo, EAT, RED);
 	usleep(philo->data->time_to_eat * 1000);
 	philo->nb_eaten++;
