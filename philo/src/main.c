@@ -41,9 +41,7 @@ int	main(int argc, char **argv)
 	}
 	i = 0;
 	while (i < data.number_of_philo)
-	{
 		pthread_join(data.tid[i++], NULL);
-	}
 	free_philo(&philo_arr);
 	return (0);
 }
