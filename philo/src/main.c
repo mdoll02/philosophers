@@ -31,8 +31,12 @@ int	main(int argc, char **argv)
 	philo_arr = init_philosopher(&data, &start_time);
 	while (i < data.number_of_philo)
 	{
-		if (pthread_create(&data.tid[i], NULL, &philosopher, &philo_arr[i]) != 0)
-			printf("thread broky\n");
+		if (pthread_create(&data.tid[i], NULL, &philosopher, \
+										&philo_arr[i]) != 0)
+		{
+			printf("failed to initialize thread\n");
+			break ;
+		}
 		i++;
 	}
 	i = 0;
