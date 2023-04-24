@@ -20,6 +20,7 @@ void	free_data(t_data *data)
 	free(data->forks);
 	free(data->tid);
 	pthread_mutex_destroy(&data->display);
+	pthread_mutex_destroy(&data->death);
 }
 
 void	free_philo(t_philo **philo)

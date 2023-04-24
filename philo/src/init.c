@@ -50,6 +50,8 @@ int	fill_struct(t_data *data, char **argv, int argc)
 		return (destroy(i, data, false), free(data->forks), free(data->tid), 1);
 	if (pthread_mutex_init(&data->display, NULL) != 0)
 		return (destroy(i, data, true), free(data->forks), free(data->tid), 1);
+	if (pthread_mutex_init(&data->death, NULL) != 0)
+		return (destroy(i, data, true), free(data->forks), free(data->tid), pthread_mutex_destroy(&data->display), 1);
 	return (0);
 }
 
@@ -73,6 +75,7 @@ t_philo	*init_philosopher(t_data *data, t_time *start_time)
 		philo_arr[id].display = &data->display;
 		philo_arr[id].is_ded = false;
 		philo_arr[id].last_time_eaten = 0;
+		philo_arr[id].death = &data->death;
 		id++;
 	}
 	return (philo_arr);

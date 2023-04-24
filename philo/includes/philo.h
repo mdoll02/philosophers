@@ -28,6 +28,7 @@ typedef struct s_data
 	pthread_mutex_t	display;
 	pthread_mutex_t	*forks;
 	pthread_t		*tid;
+	pthread_mutex_t	death;
 }		t_data;
 
 typedef struct s_philo
@@ -35,6 +36,7 @@ typedef struct s_philo
 	pthread_mutex_t	*fork_left;
 	pthread_mutex_t	*fork_right;
 	pthread_mutex_t	*display;
+	pthread_mutex_t	*death;
 	t_data			*data;
 	t_time			*start_time;
 	int				nb_eaten;
