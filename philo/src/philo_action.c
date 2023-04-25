@@ -19,7 +19,9 @@
 
 static void	eat_n_sleep(t_philo *philo)
 {
+	pthread_mutex_lock(philo->death);
 	philo->last_time_eaten = get_time_stamp(*philo->start_time);
+	pthread_mutex_unlock(philo->death);
 	print_msg(philo, EAT, RED);
 	usleep(philo->data->time_to_eat * 1000);
 	philo->nb_eaten++;

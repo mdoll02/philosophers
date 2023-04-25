@@ -65,6 +65,7 @@ void	print_msg(t_philo *philo, char *msg, char *color)
 {
 	int	time;
 
+	pthread_mutex_lock(philo->death);
 	if (philo->is_ded == false)
 	{
 		time = get_time_stamp(*philo->start_time);
@@ -72,4 +73,5 @@ void	print_msg(t_philo *philo, char *msg, char *color)
 		printf("%s""%u %u""%s" END, color, time, philo->id, msg);
 		pthread_mutex_unlock(philo->display);
 	}
+	pthread_mutex_unlock(philo->death);
 }
