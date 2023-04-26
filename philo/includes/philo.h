@@ -50,7 +50,7 @@ long	atolong(const char	*str);
 void	*philosopher(void *arg);
 void	free_philo(t_philo **philo);
 void	free_data(t_data *data);
-t_philo	*init_philosopher(t_data *data, t_time *start_time);
+t_philo	**init_philosopher(t_data *data, t_time *start_time);
 int		fill_struct(t_data *data, char **argv, int argc);
 
 #endif
