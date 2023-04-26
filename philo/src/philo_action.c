@@ -17,30 +17,30 @@
 #include "msg.h"
 #include "philo_helpers.h"
 
-static void	eat_n_sleep(t_philo *philo)
+static void	eat_n_sleep(t_philo **philo)
 {
-	pthread_mutex_lock(philo->death);
-	philo->last_time_eaten = get_time_stamp(*philo->start_time);
-	pthread_mutex_unlock(philo->death);
-	print_msg(philo, EAT, RED);
-	usleep(philo->data->time_to_eat * 1000);
-	philo->nb_eaten++;
+	pthread_mutex_lock((*philo)->death);
+	(*philo)->last_time_eaten = get_time_stamp(*(*philo)->start_time);
+	pthread_mutex_unlock((*philo)->death);
+	print_msg((*philo), EAT, RED);
+	usleep((*philo)->data->time_to_eat * 1000);
+	(*philo)->nb_eaten++;
 	fork_unlock(philo);
-	print_msg(philo, SLEEP, BLU);
-	usleep(philo->data->time_to_sleep * 1000);
+	print_msg((*philo), SLEEP, BLU);
+	usleep((*philo)->data->time_to_sleep * 1000);
 }
 
 void	*philosopher(void *arg)
 {
-	t_philo	philo;
+	t_philo	*philo;
 
-	philo = *(t_philo *) arg;
-	while (philo.is_ded == false)
+	philo = (t_philo *)arg;
+	while (philo->is_ded == false)
 	{
 		fork_lock(&philo);
 		eat_n_sleep(&philo);
-		print_msg(&philo, THINK, GRN);
-		if (philo.nb_eaten == philo.data->how_much_eat)
+		print_msg(philo, THINK, GRN);
+		if (philo->nb_eaten == philo->data->how_much_eat)
 			break ;
 	}
 	return (NULL);
