@@ -19,22 +19,22 @@
 #include <msg.h>
 #include <color.h>
 
-static void	end_stuff(t_philo **philo_arr, t_data *data)
+static void	end_stuff(t_philo ***philo_arr, t_data *data)
 {
 	int	i;
 
 	i = 0;
 	pthread_mutex_unlock(&data->death);
-	print_msg(philo_arr[i], DIE, END);
+	print_msg(*philo_arr[i], DIE, END);
 	pthread_mutex_lock(&data->death);
 	while (i < data->number_of_philo)
 	{
-		(*philo_arr)[i].is_ded = true;
+		(*philo_arr)[i]->is_ded = true;
 		i++;
 	}
 }
 
-static void	check_if_ded(t_philo **philo_arr, t_data *data, t_time start_time)
+static void	check_if_ded(t_philo ***philo_arr, t_data *data, t_time start_time)
 {
 	int		i;
 
@@ -44,9 +44,10 @@ static void	check_if_ded(t_philo **philo_arr, t_data *data, t_time start_time)
 		while (i < data->number_of_philo)
 		{
 			pthread_mutex_lock(&data->death);
-			if (get_time_stamp(start_time) - (*philo_arr)[i].last_time_eaten > data->time_to_die)
+			if (get_time_stamp(start_time) - (*philo_arr)[i]->last_time_eaten >= data->time_to_die && (*philo_arr)[i]->last_time_eaten != 0)
 			{
 				end_stuff(philo_arr, data);
+				pthread_mutex_unlock(&data->death);
 				return ;
 			}
 			pthread_mutex_unlock(&data->death);
@@ -71,7 +72,7 @@ int	main(int argc, char **argv)
 	while (i < data.number_of_philo)
 	{
 		if (pthread_create(&data.tid[i], NULL, &philosopher, \
-										&philo_arr[i]) != 0)
+										philo_arr[i]) != 0)
 		{
 			printf("failed to initialize thread\n");
 			break ;
