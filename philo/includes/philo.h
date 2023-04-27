@@ -13,7 +13,7 @@
 #ifndef PHILO_H
 # define PHILO_H
 
-# include <pthread/pthread.h>
+# include <pthread.h>
 # include <stdbool.h>
 
 typedef struct timeval	t_time;
