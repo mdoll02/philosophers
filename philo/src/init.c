@@ -6,7 +6,7 @@
 /*   By: mdoll <mdoll@stduent.42wolfsburg>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 11:55:01 by mdoll             #+#    #+#             */
-/*   Updated: 2023/04/27 11:15:09 by mdoll            ###   ########.fr       */
+/*   Updated: 2023/04/27 14:35:46 by mdoll            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,15 @@ static void	destroy(int i, t_data *data, bool mutex)
 		pthread_mutex_destroy(&data->forks[i]);
 	if (mutex)
 		printf("mutex init failed\n");
+}
+
+static void	free_stuff(int i, t_data *data, bool mutex)
+{
+	destroy(i, data, mutex);
+	if (data->forks)
+		free(data->forks);
+	if (data->tid)
+		free(data->tid);
 }
 
 int	fill_struct(t_data *data, char **argv, int argc)
@@ -38,20 +47,17 @@ int	fill_struct(t_data *data, char **argv, int argc)
 	data->forks = malloc(sizeof(pthread_mutex_t) * data->number_of_philo);
 	if (!data->forks)
 		return (1);
-	i = 0;
-	while (i < data->number_of_philo)
-	{
+	i = -1;
+	while (++i < data->number_of_philo)
 		if (pthread_mutex_init(&data->forks[i], NULL))
 			return (destroy(i, data, true), free(data->forks), 1);
-		i++;
-	}
 	data->tid = (pthread_t *)malloc(data->number_of_philo * sizeof(pthread_t));
 	if (!data->tid)
-		return (destroy(i, data, false), free(data->forks), free(data->tid), 1);
-	if (pthread_mutex_init(&data->death, NULL))
-		return (destroy(i, data, true), free(data->forks), free(data->tid), 1);
-	if (pthread_mutex_init(&data->mut_finished, NULL))
-		return (destroy(i, data, true), free(data->forks), free(data->tid), pthread_mutex_destroy(&data->death), 1);
+		return (free_stuff(i, data, false), 1);
+	if (pthread_mutex_init(&data->death, NULL)
+		|| pthread_mutex_init(&data->mut_finished, NULL))
+		return (free_stuff(i, data, true), \
+				pthread_mutex_destroy(&data->death), 1);
 	return (0);
 }
 

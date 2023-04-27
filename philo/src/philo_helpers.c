@@ -71,7 +71,6 @@ void	print_msg(t_philo *philo, char *msg, char *color)
 {
 	int	time;
 
-
 	pthread_mutex_lock(&philo->data->mut_finished);
 	if (!philo->data->finished)
 	{

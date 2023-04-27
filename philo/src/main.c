@@ -6,7 +6,7 @@
 /*   By: mdoll <mdoll@stduent.42wolfsburg>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/05 10:20:15 by mdoll             #+#    #+#             */
-/*   Updated: 2023/04/27 11:12:57 by mdoll            ###   ########.fr       */
+/*   Updated: 2023/04/27 14:37:04 by mdoll            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,8 @@ static void	check_if_ded(t_philo **philo_arr, t_data *data, t_time start_time)
 			pthread_mutex_lock(&data->death);
 			all_ate &= (philo_arr[i]->nb_eaten >= data->how_much_eat
 					&& data->how_much_eat != 0);
-			if (get_time_stamp(start_time) - philo_arr[i]->last_time_eaten >= data->time_to_die && philo_arr[i]->last_time_eaten != 0)
+			if (get_time_stamp(start_time) - philo_arr[i]->last_time_eaten >= \
+						data->time_to_die && philo_arr[i]->last_time_eaten != 0)
 				end_stuff(philo_arr, data, i, true);
 			pthread_mutex_unlock(&data->death);
 			i++;
@@ -63,26 +64,19 @@ int	main(int argc, char **argv)
 
 	if (input_check(argc, argv))
 		return (1);
-	i = 0;
-	fill_struct(&data, argv, argc);
+	if (fill_struct(&data, argv, argc))
+		return (1);
 	gettimeofday(&start_time, NULL);
 	philo_arr = init_philosopher(&data, &start_time);
 	if (!philo_arr)
 		return (1);
-	while (i < data.number_of_philo)
-	{
-		if (pthread_create(&data.tid[i], NULL, &philosopher, philo_arr[i]))
-		{
-			printf("failed to initialize thread\n");
-			break ;
-		}
-		i++;
-	}
+	i = -1;
+	while (++i < data.number_of_philo)
+		pthread_create(&data.tid[i], NULL, &philosopher, philo_arr[i]);
 	if (data.number_of_philo)
 		check_if_ded(philo_arr, &data, start_time);
-	i = 0;
-	while (i < data.number_of_philo)
-		pthread_join(data.tid[i++], NULL);
+	while (--i >= 0)
+		pthread_join(data.tid[i], NULL);
 	if (data.number_of_philo)
 		free_philo(philo_arr, data.number_of_philo);
 	return (0);
