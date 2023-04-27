@@ -67,6 +67,8 @@ int	main(int argc, char **argv)
 	fill_struct(&data, argv, argc);
 	gettimeofday(&start_time, NULL);
 	philo_arr = init_philosopher(&data, &start_time);
+	if (!philo_arr)
+		return (1);
 	while (i < data.number_of_philo)
 	{
 		if (pthread_create(&data.tid[i], NULL, &philosopher, philo_arr[i]))

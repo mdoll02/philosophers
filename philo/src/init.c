@@ -51,7 +51,7 @@ int	fill_struct(t_data *data, char **argv, int argc)
 	if (pthread_mutex_init(&data->death, NULL))
 		return (destroy(i, data, true), free(data->forks), free(data->tid), 1);
 	if (pthread_mutex_init(&data->mut_finished, NULL))
-		return (destroy(i, data, true), free(data->forks), free(data->tid), 1);
+		return (destroy(i, data, true), free(data->forks), free(data->tid), pthread_mutex_destroy(&data->death), 1);
 	return (0);
 }
 
@@ -61,7 +61,7 @@ static t_philo	*set_values(int id, t_data *data, t_time *start_time)
 
 	philo = (t_philo *)malloc(sizeof(t_philo));
 	if (!philo)
-		exit(1); // TODO: implement proper error handling
+		return (NULL);
 	philo->data = data;
 	philo->start_time = *start_time;
 	philo->id = id;
@@ -86,7 +86,7 @@ t_philo	**init_philosopher(t_data *data, t_time *start_time)
 	{
 		philo_arr[id] = set_values(id, data, start_time);
 		if (!philo_arr[id])
-			exit(1); // TODO: implement proper error handling
+			return (free_philo(philo_arr, data->number_of_philo), NULL);
 		id++;
 	}
 	return (philo_arr);
