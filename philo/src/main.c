@@ -19,14 +19,12 @@
 #include <msg.h>
 #include <color.h>
 
-static void	end_stuff(t_philo ***philo_arr, t_data *data)
+static void	end_stuff(t_philo ***philo_arr, t_data *data, int phil_num)
 {
 	int	i;
 
 	i = 0;
-	pthread_mutex_unlock(&data->death);
-	print_msg(*philo_arr[i], DIE, END);
-	pthread_mutex_lock(&data->death);
+	print_msg((*philo_arr)[phil_num], DIE, END);
 	while (i < data->number_of_philo)
 	{
 		(*philo_arr)[i]->is_ded = true;
@@ -46,7 +44,7 @@ static void	check_if_ded(t_philo ***philo_arr, t_data *data, t_time start_time)
 			pthread_mutex_lock(&data->death);
 			if (get_time_stamp(start_time) - (*philo_arr)[i]->last_time_eaten >= data->time_to_die && (*philo_arr)[i]->last_time_eaten != 0)
 			{
-				end_stuff(philo_arr, data);
+				end_stuff(philo_arr, data, i);
 				pthread_mutex_unlock(&data->death);
 				return ;
 			}
