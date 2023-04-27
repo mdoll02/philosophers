@@ -6,7 +6,7 @@
 /*   By: mdoll <mdoll@stduent.42wolfsburg>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 11:55:01 by mdoll             #+#    #+#             */
-/*   Updated: 2023/04/27 10:40:22 by mdoll            ###   ########.fr       */
+/*   Updated: 2023/04/27 11:15:09 by mdoll            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,14 +41,16 @@ int	fill_struct(t_data *data, char **argv, int argc)
 	i = 0;
 	while (i < data->number_of_philo)
 	{
-		if (pthread_mutex_init(&data->forks[i], NULL) != 0)
+		if (pthread_mutex_init(&data->forks[i], NULL))
 			return (destroy(i, data, true), free(data->forks), 1);
 		i++;
 	}
 	data->tid = (pthread_t *)malloc(data->number_of_philo * sizeof(pthread_t));
 	if (!data->tid)
 		return (destroy(i, data, false), free(data->forks), free(data->tid), 1);
-	if (pthread_mutex_init(&data->death, NULL) != 0)
+	if (pthread_mutex_init(&data->death, NULL))
+		return (destroy(i, data, true), free(data->forks), free(data->tid), 1);
+	if (pthread_mutex_init(&data->mut_finished, NULL))
 		return (destroy(i, data, true), free(data->forks), free(data->tid), 1);
 	return (0);
 }

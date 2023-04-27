@@ -6,7 +6,7 @@
 /*   By: mdoll <mdoll@stduent.42wolfsburg>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/05 10:11:28 by mdoll             #+#    #+#             */
-/*   Updated: 2023/04/20 09:54:50 by mdoll            ###   ########.fr       */
+/*   Updated: 2023/04/27 11:14:23 by mdoll            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,10 @@ typedef struct s_data
 	int				how_much_eat;
 	int				number_of_philo;
 	bool			finished;
-	pthread_mutex_t	display;
 	pthread_mutex_t	*forks;
 	pthread_t		*tid;
 	pthread_mutex_t	death;
+	pthread_mutex_t	mut_finished;
 }		t_data;
 
 typedef struct s_philo

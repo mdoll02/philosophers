@@ -6,7 +6,7 @@
 /*   By: mdoll <mdoll@stduent.42wolfsburg>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/05 10:20:15 by mdoll             #+#    #+#             */
-/*   Updated: 2023/04/27 10:49:05 by mdoll            ###   ########.fr       */
+/*   Updated: 2023/04/27 11:12:57 by mdoll            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,9 @@ static void	end_stuff(t_philo **philo_arr, t_data *data, int phil_num, bool prt)
 		print_msg(philo_arr[phil_num], DIE, END);
 	else
 		printf(ALL_ATE, data->how_much_eat);
+	pthread_mutex_lock(&data->mut_finished);
 	data->finished = true;
+	pthread_mutex_unlock(&data->mut_finished);
 }
 
 static void	check_if_ded(t_philo **philo_arr, t_data *data, t_time start_time)

@@ -19,7 +19,6 @@ void	free_data(t_data *data)
 		pthread_mutex_destroy(&data->forks[data->number_of_philo]);
 	free(data->forks);
 	free(data->tid);
-	pthread_mutex_destroy(&data->display);
 	pthread_mutex_destroy(&data->death);
 	pthread_mutex_destroy(&data->death);
 }

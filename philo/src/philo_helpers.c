@@ -6,7 +6,7 @@
 /*   By: mdoll <mdoll@stduent.42wolfsburg>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 11:22:28 by mdoll             #+#    #+#             */
-/*   Updated: 2023/04/27 10:50:52 by mdoll            ###   ########.fr       */
+/*   Updated: 2023/04/27 11:17:09 by mdoll            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,9 +65,12 @@ void	print_msg(t_philo *philo, char *msg, char *color)
 {
 	int	time;
 
+
+	pthread_mutex_lock(&philo->data->mut_finished);
 	if (!philo->data->finished)
 	{
 		time = get_time_stamp(philo->start_time);
 		printf("%s%u %u %s" END, color, time, philo->id, msg);
 	}
+	pthread_mutex_unlock(&philo->data->mut_finished);
 }
