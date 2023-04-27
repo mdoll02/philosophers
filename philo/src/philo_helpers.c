@@ -6,7 +6,7 @@
 /*   By: mdoll <mdoll@stduent.42wolfsburg>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 11:22:28 by mdoll             #+#    #+#             */
-/*   Updated: 2023/04/21 11:22:28 by mdoll            ###   ########.fr       */
+/*   Updated: 2023/04/27 10:50:52 by mdoll            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,6 @@ void	print_msg(t_philo *philo, char *msg, char *color)
 	if (!philo->data->finished)
 	{
 		time = get_time_stamp(*philo->start_time);
-		printf("%s""%u %u""%s" END, color, time, philo->id, msg);
+		printf("%s%u %u %s" END, color, time, philo->id, msg);
 	}
 }

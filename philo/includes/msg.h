@@ -13,10 +13,11 @@
 #ifndef MSG_H
 # define MSG_H
 
-# define FORK " has taken a fork\n"
-# define EAT " is eating\n"
-# define SLEEP " is sleeping\n"
-# define THINK " is thinking\n"
-# define DIE " died\n"
+# define FORK "has taken a fork\n"
+# define EAT "is eating\n"
+# define SLEEP "is sleeping\n"
+# define THINK "is thinking\n"
+# define DIE "died\n"
+# define ALL_ATE "All philosphers ate their %d meals.\n"
 
 #endif

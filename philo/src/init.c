@@ -6,7 +6,7 @@
 /*   By: mdoll <mdoll@stduent.42wolfsburg>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 11:55:01 by mdoll             #+#    #+#             */
-/*   Updated: 2023/04/20 11:55:01 by mdoll            ###   ########.fr       */
+/*   Updated: 2023/04/27 10:40:22 by mdoll            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	fill_struct(t_data *data, char **argv, int argc)
 	data->time_to_die = (int) atolong(argv[2]);
 	data->time_to_eat = (int) atolong(argv[3]);
 	data->time_to_sleep = (int) atolong(argv[4]);
-	data->how_much_eat = -1;
+	data->how_much_eat = 0;
 	if (argc == 6)
 		data->how_much_eat = (int) atolong(argv[5]);
 	data->forks = malloc(sizeof(pthread_mutex_t) * data->number_of_philo);

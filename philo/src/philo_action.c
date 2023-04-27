@@ -40,8 +40,6 @@ void	*philosopher(void *arg)
 		fork_lock(philo);
 		eat_n_sleep(philo);
 		print_msg(philo, THINK, GRN);
-		if (philo->nb_eaten == philo->data->how_much_eat)
-			break ;
 	}
 	return (NULL);
 }

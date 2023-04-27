@@ -2,7 +2,8 @@ NAME := philo
 
 CC := gcc
 
-CFLAGS := -Wall -Wextra -Werror -g -fsanitize=thread
+CFLAGS := -Wall -Wextra -Werror -g
+# CFLAGS := $(CFLAGS) -fsanitize=thread
 
 INCLUDES := -I includes
 

@@ -6,7 +6,7 @@
 /*   By: mdoll <mdoll@stduent.42wolfsburg>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/05 10:20:15 by mdoll             #+#    #+#             */
-/*   Updated: 2023/04/20 09:54:28 by mdoll            ###   ########.fr       */
+/*   Updated: 2023/04/27 10:49:05 by mdoll            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,31 +19,36 @@
 #include <msg.h>
 #include <color.h>
 
-static void	end_stuff(t_philo ***philo_arr, t_data *data, int phil_num)
+static void	end_stuff(t_philo **philo_arr, t_data *data, int phil_num, bool prt)
 {
-	print_msg((*philo_arr)[phil_num], DIE, END);
+	if (prt)
+		print_msg(philo_arr[phil_num], DIE, END);
+	else
+		printf(ALL_ATE, data->how_much_eat);
 	data->finished = true;
 }
 
-static void	check_if_ded(t_philo ***philo_arr, t_data *data, t_time start_time)
+static void	check_if_ded(t_philo **philo_arr, t_data *data, t_time start_time)
 {
 	int		i;
+	bool	all_ate;
 
-	while (1)
+	while (!data->finished)
 	{
+		all_ate = true;
 		i = 0;
-		while (i < data->number_of_philo)
+		while (i < data->number_of_philo && !data->finished)
 		{
 			pthread_mutex_lock(&data->death);
-			if (get_time_stamp(start_time) - (*philo_arr)[i]->last_time_eaten >= data->time_to_die && (*philo_arr)[i]->last_time_eaten != 0)
-			{
-				end_stuff(philo_arr, data, i);
-				pthread_mutex_unlock(&data->death);
-				return ;
-			}
+			all_ate &= (philo_arr[i]->nb_eaten >= data->how_much_eat
+					&& data->how_much_eat != 0);
+			if (get_time_stamp(start_time) - philo_arr[i]->last_time_eaten >= data->time_to_die && philo_arr[i]->last_time_eaten != 0)
+				end_stuff(philo_arr, data, i, true);
 			pthread_mutex_unlock(&data->death);
 			i++;
 		}
+		if (all_ate)
+			end_stuff(philo_arr, data, i, false);
 	}
 }
 
@@ -69,7 +74,7 @@ int	main(int argc, char **argv)
 		}
 		i++;
 	}
-	check_if_ded(&philo_arr, &data, start_time);
+	check_if_ded(philo_arr, &data, start_time);
 	i = 0;
 	while (i < data.number_of_philo)
 		pthread_join(data.tid[i++], NULL);
