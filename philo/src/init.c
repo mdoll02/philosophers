@@ -12,7 +12,6 @@
 
 #include <stdio.h>
 #include "philo.h"
-#include <pthread/pthread.h>
 #include <strings.h>
 #include <stdlib.h>
 
