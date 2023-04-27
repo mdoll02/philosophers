@@ -39,7 +39,12 @@ void	*philosopher(void *arg)
 	while (philo->data->finished == false)
 	{
 		pthread_mutex_unlock(&philo->data->mut_finished);
-		fork_lock(philo);
+		if (fork_lock(philo) == false)
+		{
+			usleep(philo->data->time_to_die * 1000);
+			philo->data->finished = true;
+			break ;
+		}
 		eat_n_sleep(philo);
 		print_msg(philo, THINK, GRN);
 		pthread_mutex_lock(&philo->data->mut_finished);

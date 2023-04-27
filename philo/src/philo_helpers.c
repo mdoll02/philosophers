@@ -43,8 +43,13 @@ void	fork_unlock(t_philo *philo)
 	}
 }
 
-void	fork_lock(t_philo *philo)
+bool	fork_lock(t_philo *philo)
 {
+	if (philo->data->number_of_philo == 1)
+	{
+		print_msg(philo, FORK, MGT);
+		return (false);
+	}
 	if (philo->id % 2 == 1)
 	{
 		pthread_mutex_lock(philo->fork_left);
@@ -59,6 +64,7 @@ void	fork_lock(t_philo *philo)
 		pthread_mutex_lock(philo->fork_left);
 		print_msg(philo, FORK, MGT);
 	}
+	return (true);
 }
 
 void	print_msg(t_philo *philo, char *msg, char *color)

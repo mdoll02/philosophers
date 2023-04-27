@@ -17,6 +17,7 @@
 #include "philo_helpers.h"
 #include <msg.h>
 #include <color.h>
+#include <unistd.h>
 
 static void	end_stuff(t_philo **philo_arr, t_data *data, int phil_num, bool prt)
 {
@@ -75,16 +76,12 @@ int	main(int argc, char **argv)
 		}
 		i++;
 	}
-	check_if_ded(philo_arr, &data, start_time);
+	if (data.number_of_philo)
+		check_if_ded(philo_arr, &data, start_time);
 	i = 0;
 	while (i < data.number_of_philo)
 		pthread_join(data.tid[i++], NULL);
-	free_philo(philo_arr);
+	if (data.number_of_philo)
+		free_philo(philo_arr, data.number_of_philo);
 	return (0);
 }
-
-// TODO special case 1 philo or 0 times to eat
-// TODO norm refactor
-// TODO If a number for minimum eat is set, dont stop but eat until everybody is finished
-// TODO 5 800 200 200 is fucked
-// TODO 4 310 200 100 data-races
