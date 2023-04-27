@@ -17,7 +17,6 @@
 #include "philo_helpers.h"
 #include <msg.h>
 #include <color.h>
-#include <unistd.h>
 
 static void	end_stuff(t_philo **philo_arr, t_data *data, int phil_num, bool prt)
 {
