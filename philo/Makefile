@@ -3,7 +3,7 @@ NAME := philo
 CC := gcc
 
 CFLAGS := -Wall -Wextra -Werror -g
-CFLAGS := $(CFLAGS) -fsanitize=thread
+# CFLAGS := $(CFLAGS) -fsanitize=address
 
 INCLUDES := -I includes
 
