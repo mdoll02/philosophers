@@ -25,6 +25,7 @@ typedef struct s_data
 	int				time_to_sleep;
 	int				how_much_eat;
 	int				number_of_philo;
+	bool			finished;
 	pthread_mutex_t	display;
 	pthread_mutex_t	*forks;
 	pthread_t		*tid;
@@ -35,13 +36,11 @@ typedef struct s_philo
 {
 	pthread_mutex_t	*fork_left;
 	pthread_mutex_t	*fork_right;
-	pthread_mutex_t	*display;
 	pthread_mutex_t	*death;
 	t_data			*data;
 	t_time			*start_time;
 	int				nb_eaten;
 	int				last_time_eaten;
-	bool			is_ded;
 	unsigned int	id;
 }		t_philo;
 

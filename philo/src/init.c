@@ -28,6 +28,7 @@ int	fill_struct(t_data *data, char **argv, int argc)
 {
 	int	i;
 
+	data->finished = false;
 	data->number_of_philo = (int) atolong(argv[1]);
 	data->time_to_die = (int) atolong(argv[2]);
 	data->time_to_eat = (int) atolong(argv[3]);
@@ -48,10 +49,8 @@ int	fill_struct(t_data *data, char **argv, int argc)
 	data->tid = (pthread_t *)malloc(data->number_of_philo * sizeof(pthread_t));
 	if (!data->tid)
 		return (destroy(i, data, false), free(data->forks), free(data->tid), 1);
-	if (pthread_mutex_init(&data->display, NULL) != 0)
-		return (destroy(i, data, true), free(data->forks), free(data->tid), 1);
 	if (pthread_mutex_init(&data->death, NULL) != 0)
-		return (destroy(i, data, true), free(data->forks), free(data->tid), pthread_mutex_destroy(&data->display), 1);
+		return (destroy(i, data, true), free(data->forks), free(data->tid), 1);
 	return (0);
 }
 
@@ -68,8 +67,6 @@ static t_philo	*set_values(int id, t_data *data, t_time *start_time)
 	philo->nb_eaten = 0;
 	philo->fork_left = &data->forks[id];
 	philo->fork_right = &data->forks[(id + 1) % data->number_of_philo];
-	philo->display = &data->display;
-	philo->is_ded = false;
 	philo->last_time_eaten = 0;
 	philo->death = &data->death;
 	return (philo);

@@ -21,15 +21,8 @@
 
 static void	end_stuff(t_philo ***philo_arr, t_data *data, int phil_num)
 {
-	int	i;
-
-	i = 0;
 	print_msg((*philo_arr)[phil_num], DIE, END);
-	while (i < data->number_of_philo)
-	{
-		(*philo_arr)[i]->is_ded = true;
-		i++;
-	}
+	data->finished = true;
 }
 
 static void	check_if_ded(t_philo ***philo_arr, t_data *data, t_time start_time)
@@ -69,8 +62,7 @@ int	main(int argc, char **argv)
 	philo_arr = init_philosopher(&data, &start_time);
 	while (i < data.number_of_philo)
 	{
-		if (pthread_create(&data.tid[i], NULL, &philosopher, \
-										philo_arr[i]) != 0)
+		if (pthread_create(&data.tid[i], NULL, &philosopher, philo_arr[i]))
 		{
 			printf("failed to initialize thread\n");
 			break ;
@@ -84,3 +76,9 @@ int	main(int argc, char **argv)
 	free_philo(philo_arr);
 	return (0);
 }
+
+// TODO special case 1 philo or 0 times to eat
+// TODO norm refactor
+// TODO If a number for minimum eat is set, dont stop but eat until everybody is finished
+// TODO 5 800 200 200 is fucked
+// TODO 4 310 200 100 data-races

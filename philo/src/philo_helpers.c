@@ -29,35 +29,35 @@ int	get_time_stamp(t_time start_time)
 	return (ms + (int)s);
 }
 
-void	fork_unlock(t_philo **philo)
+void	fork_unlock(t_philo *philo)
 {
-	if ((*philo)->id % 2 == 1)
+	if (philo->id % 2 == 1)
 	{
-		pthread_mutex_unlock((*philo)->fork_left);
-		pthread_mutex_unlock((*philo)->fork_right);
+		pthread_mutex_unlock(philo->fork_left);
+		pthread_mutex_unlock(philo->fork_right);
 	}
 	else
 	{
-		pthread_mutex_unlock((*philo)->fork_right);
-		pthread_mutex_unlock((*philo)->fork_left);
+		pthread_mutex_unlock(philo->fork_right);
+		pthread_mutex_unlock(philo->fork_left);
 	}
 }
 
-void	fork_lock(t_philo **philo)
+void	fork_lock(t_philo *philo)
 {
-	if ((*philo)->id % 2 == 1)
+	if (philo->id % 2 == 1)
 	{
-		pthread_mutex_lock((*philo)->fork_left);
-		print_msg((*philo), FORK, MGT);
-		pthread_mutex_lock((*philo)->fork_right);
-		print_msg((*philo), FORK, MGT);
+		pthread_mutex_lock(philo->fork_left);
+		print_msg(philo, FORK, MGT);
+		pthread_mutex_lock(philo->fork_right);
+		print_msg(philo, FORK, MGT);
 	}
 	else
 	{
-		pthread_mutex_lock((*philo)->fork_right);
-		print_msg((*philo), FORK, MGT);
-		pthread_mutex_lock((*philo)->fork_left);
-		print_msg((*philo), FORK, MGT);
+		pthread_mutex_lock(philo->fork_right);
+		print_msg(philo, FORK, MGT);
+		pthread_mutex_lock(philo->fork_left);
+		print_msg(philo, FORK, MGT);
 	}
 }
 
@@ -65,11 +65,9 @@ void	print_msg(t_philo *philo, char *msg, char *color)
 {
 	int	time;
 
-	pthread_mutex_lock(philo->display);
-	if (philo->is_ded == false)
+	if (!philo->data->finished)
 	{
 		time = get_time_stamp(*philo->start_time);
 		printf("%s""%u %u""%s" END, color, time, philo->id, msg);
 	}
-	pthread_mutex_unlock(philo->display);
 }
