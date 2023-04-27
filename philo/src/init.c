@@ -62,7 +62,7 @@ static t_philo	*set_values(int id, t_data *data, t_time *start_time)
 	if (!philo)
 		exit(1); // TODO: implement proper error handling
 	philo->data = data;
-	philo->start_time = start_time;
+	philo->start_time = *start_time;
 	philo->id = id;
 	philo->nb_eaten = 0;
 	philo->fork_left = &data->forks[id];

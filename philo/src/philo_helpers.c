@@ -67,7 +67,7 @@ void	print_msg(t_philo *philo, char *msg, char *color)
 
 	if (!philo->data->finished)
 	{
-		time = get_time_stamp(*philo->start_time);
+		time = get_time_stamp(philo->start_time);
 		printf("%s%u %u %s" END, color, time, philo->id, msg);
 	}
 }

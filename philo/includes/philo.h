@@ -15,6 +15,7 @@
 
 # include <pthread.h>
 # include <stdbool.h>
+# include <sys/time.h>
 
 typedef struct timeval	t_time;
 
@@ -38,7 +39,7 @@ typedef struct s_philo
 	pthread_mutex_t	*fork_right;
 	pthread_mutex_t	*death;
 	t_data			*data;
-	t_time			*start_time;
+	t_time			start_time;
 	int				nb_eaten;
 	int				last_time_eaten;
 	unsigned int	id;
