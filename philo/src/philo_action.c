@@ -47,6 +47,7 @@ void	*philosopher(void *arg)
 		}
 		eat_n_sleep(philo);
 		print_msg(philo, THINK, GRN);
+		usleep(philo->data->time_to_eat * 1000);
 		pthread_mutex_lock(&philo->data->mut_finished);
 	}
 	pthread_mutex_unlock(&philo->data->mut_finished);
