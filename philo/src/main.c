@@ -51,6 +51,9 @@ static void	check_if_ded(t_philo **philo_arr, t_data *data, t_time start_time)
 		}
 		if (all_ate)
 			end_stuff(philo_arr, data, i, false);
+		if (data->number_of_philo == 1 && get_time_stamp(start_time) \
+					>= data->time_to_die)
+			end_stuff(philo_arr, data, 0, true);
 	}
 }
 
