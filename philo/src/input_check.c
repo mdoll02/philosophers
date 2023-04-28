@@ -24,10 +24,8 @@ int	input_check(int argc, char **argv)
 	while (argc-- > 1)
 	{
 		num = atolong(*argv);
-		if (num > INT_MAX)
-			return (printf("%s needs to be in integer range\n", *argv), 1);
-		else if (num < 0)
-			return (printf("%s needs to be a positive number\n", *argv), 1);
+		if (num == 0 || num < 0 || num > INT_MAX)
+			return (printf("Input is invalid\n"), 1);
 		argv++;
 	}
 	return (0);

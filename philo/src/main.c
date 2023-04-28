@@ -17,6 +17,7 @@
 #include "philo_helpers.h"
 #include <msg.h>
 #include <color.h>
+#include <unistd.h>
 
 static void	end_stuff(t_philo **philo_arr, t_data *data, int phil_num, bool die)
 {
@@ -65,9 +66,7 @@ int	main(int argc, char **argv)
 	t_time			start_time;
 	t_philo			**philo_arr;
 
-	if (input_check(argc, argv))
-		return (1);
-	if (fill_struct(&data, argv, argc))
+	if (input_check(argc, argv) || fill_struct(&data, argv, argc))
 		return (1);
 	gettimeofday(&start_time, NULL);
 	philo_arr = init_philosopher(&data, &start_time);
@@ -75,7 +74,10 @@ int	main(int argc, char **argv)
 		return (1);
 	i = -1;
 	while (++i < data.number_of_philo)
+	{
 		pthread_create(&data.tid[i], NULL, &philosopher, philo_arr[i]);
+		usleep(100);
+	}
 	if (data.number_of_philo)
 		check_if_ded(philo_arr, &data, start_time);
 	while (--i >= 0)
