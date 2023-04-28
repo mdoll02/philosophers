@@ -74,10 +74,7 @@ int	main(int argc, char **argv)
 		return (1);
 	i = -1;
 	while (++i < data.number_of_philo)
-	{
 		pthread_create(&data.tid[i], NULL, &philosopher, philo_arr[i]);
-		usleep(100);
-	}
 	if (data.number_of_philo)
 		check_if_ded(philo_arr, &data, start_time);
 	while (--i >= 0)
