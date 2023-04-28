@@ -42,7 +42,6 @@ void	*philosopher(void *arg)
 		if (fork_lock(philo) == false)
 		{
 			usleep(philo->data->time_to_die * 1000);
-			philo->data->finished = true;
 			break ;
 		}
 		eat_n_sleep(philo);
