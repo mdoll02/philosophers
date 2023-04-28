@@ -18,9 +18,9 @@
 #include <msg.h>
 #include <color.h>
 
-static void	end_stuff(t_philo **philo_arr, t_data *data, int phil_num, bool prt)
+static void	end_stuff(t_philo **philo_arr, t_data *data, int phil_num, bool die)
 {
-	if (prt)
+	if (die)
 		print_msg(philo_arr[phil_num], DIE, END);
 	else
 		printf(ALL_ATE, data->how_much_eat);
