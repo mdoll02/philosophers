@@ -42,7 +42,8 @@ static void	check_if_ded(t_philo **philo_arr, t_data *data, t_time start_time)
 		{
 			pthread_mutex_lock(&data->death);
 			all_ate &= (philo_arr[i]->nb_eaten >= data->how_much_eat
-					&& data->how_much_eat != 0);
+					&& data->how_much_eat != 0 && get_time_stamp(start_time) - \
+					philo_arr[i]->last_time_eaten >= data->time_to_eat);
 			if (get_time_stamp(start_time) - philo_arr[i]->last_time_eaten >= \
 						data->time_to_die && philo_arr[i]->last_time_eaten != 0)
 				end_stuff(philo_arr, data, i, true);
